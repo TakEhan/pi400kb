@@ -25,6 +25,8 @@ Reboot!
 
 `sudo modprobe libcomposite`
 
+//alt?: libcompositeが/etc/modulesに書かれている必要がある。らしい。#19。#39に対する対応らしい。
+
 Grab the latest pi400kb for your system from releases: https://github.com/Gadgetoid/pi400kb/releases
 
 `chmod +x pi400kb`
