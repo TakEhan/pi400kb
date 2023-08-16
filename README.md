@@ -1,19 +1,15 @@
 # Raspberry Pi 400 as a USB HID Keyboard & Mouse <!-- omit in toc -->
 
-Hook your Pi 400 up to your PC somehow, using a USB Type-C cable into the *power* port.
+Hook your Pi 400 up to your PC somehow, using a USB Type-C cable into the *power* port.  
 Anker make good ones- I used a 3m white one for my tests.
 
-Our USB-C to USB-A is great if you're using a USB-A port (but make sure it's a *high power* one): https://shop.pimoroni.com/products/usb-c-to-usb-a-cable-1m-black
-
+Our USB-C to USB-A is great if you're using a USB-A port (but make sure it's a *high power* one): https://shop.pimoroni.com/products/usb-c-to-usb-a-cable-1m-black  
 For the shortage of power supply, ELECOM makes a splitter that PD via USB-C and data link via USB-A: https://www.elecom.co.jp/products/MPA-CAPDBK.html
 
-A Raspberry Pi Mouse is also supported if plugged in, eg: https://shop.pimoroni.com/products/raspberry-pi-mouse?variant=29390982119507
+A Raspberry Pi Mouse is also supported if plugged in, eg: https://shop.pimoroni.com/products/raspberry-pi-mouse?variant=29390982119507  
 Following mice works: https://www.elecom.co.jp/products/M-Y8UBPN.html
 
-Following mice works: https://www.elecom.co.jp/products/M-Y8UBPN.html
-
-This project started out life as a gist - https://gist.github.com/Gadgetoid/5a8ceb714de8e630059d30612503653f
-
+This project started out life as a gist - https://gist.github.com/Gadgetoid/5a8ceb714de8e630059d30612503653f  
 Thank you to all the people who dropped by with kind words, suggestions and improvements.
 
 - [YASetup](#yet-another-setup)
