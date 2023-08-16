@@ -4,6 +4,7 @@ Hook your Pi 400 up to your PC somehow, using a USB Type-C cable into the *power
 Anker make good ones- I used a 3m white one for my tests.
 
 Our USB-C to USB-A is great if you're using a USB-A port (but make sure it's a *high power* one): https://shop.pimoroni.com/products/usb-c-to-usb-a-cable-1m-black
+
 For the shortage of power supply, ELECOM makes a splitter that PD via USB-C and data link via USB-A: https://www.elecom.co.jp/products/MPA-CAPDBK.html
 
 A Raspberry Pi Mouse is also supported if plugged in, eg: https://shop.pimoroni.com/products/raspberry-pi-mouse?variant=29390982119507
@@ -61,6 +62,16 @@ sudo systemctl status modprobe.service
 Press `Ctrl + Raspberry` to grab/release your keyboard and mouse, switching between local use and USB.
 Press `Ctrl + Shift + Raspberry` (on the grabbed keyboard) to exit. (This exit means break of detection loop)
 
+
+## Modifications
+### Simply implementation 
+- improve error handling #25 DeeNewcum:main
+- Pass through all the devices #41 Daft-Freak:all-the-devices
+- Adds the modprobe.service on startup #33 tigertank591:main
+
+### Modification
+- Modify the key to grab/release keyboard and mouse from the host #27 Shuya4
+  - DeeNewcum:pi400kb
 
 
 # Original
@@ -144,7 +155,3 @@ Supply these arguments when configuring with CMake, eg:
 ```
 cmake .. -DMOUSE_DEV="/dev/input/by-id/usb-EndGameGear_XM1_Gaming_Mouse_0000000000000000-event-mouse" -DMOUSE_VID=0x3367 -DMOUSE_PID=0x1903
 ```
-
-
-
-modprobe.service: Adds the modprobe.service on startup #33, tigertank591:main
