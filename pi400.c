@@ -21,12 +21,11 @@
 #define EVIOC_GRAB 1
 #define EVIOC_UNGRAB 0
 
-//int hid_output;//Ptad#41
+//int hid_output;
 volatile int running = 0;
 volatile int grabbed = 0;
 
 int ret;
-//Ptad#41
 static struct HIDDevice *devices = NULL;
 static int num_devices = 0;
 
@@ -69,7 +68,6 @@ bool modprobe_libcomposite() {
 }
 
 bool trigger_hook() {
-    //Ptad#41
     if(access(HOOK_PATH, F_OK) != 0)
         return;
     char buf[4096];
@@ -117,7 +115,7 @@ static void find_hidraw_devices() {
 
         ret = ioctl(fd, HIDIOCGRAWINFO, &hidinfo);
 
-        if(ret == 0 ) {//Ptad#41
+        if(ret == 0 ) {
             char name[256] = {0};
             ioctl(fd, HIDIOCGRAWNAME(sizeof(name)), &name);
 
@@ -211,14 +209,14 @@ static bool find_event_path(struct HIDDevice *device, char *output, int out_len)
 
             fclose(f);
         }
-//Ptad#41
+
     }
-    //Ptad#41return -1;
+    return -1;
     closedir(inputDir);
     return found;
 }
 
-bool grab(struct HIDDevice *device) {//Ptad#41
+bool grab(struct HIDDevice *device) {
     char path[256];
     if(device->hidraw_fd == -1)
         return false;
@@ -234,7 +232,7 @@ bool grab(struct HIDDevice *device) {//Ptad#41
     return true;
 }
 
-void ungrab(struct HIDDevice *device) {//Ptad#41
+void ungrab(struct HIDDevice *device) {
     if(device->uinput_fd == -1)
         return;
 
@@ -252,7 +250,7 @@ void printhex(unsigned char *buf, size_t len) {
     printf("\n");
 }
 
-void ungrab_all() {//Ptad#41
+void ungrab_all() {
     printf("Releasing Input Devices\n");
 
     for(struct HIDDevice *d = devices; d; d = d->next)
@@ -261,7 +259,7 @@ void ungrab_all() {//Ptad#41
     trigger_hook();
 }
 
-void grab_all() {//Ptad#41
+void grab_all() {
     printf("Grabbing Input Devices\n");
     for(struct HIDDevice *d = devices; d; d = d->next) {
         if(grab(d))
@@ -271,7 +269,7 @@ void grab_all() {//Ptad#41
     trigger_hook();
 }
 
-static bool open_output(struct HIDDevice *device, const char *path) {//Ptad#41
+static bool open_output(struct HIDDevice *device, const char *path) {
     do {
         device->output_fd = open(path, O_WRONLY | O_NDELAY);
     } while (device->output_fd == -1 && errno == EINTR);
@@ -302,7 +300,7 @@ int main(int argc, char *argv[]) {
 
     modprobe_libcomposite();
 
-    find_hidraw_devices();//Ptad#41
+    find_hidraw_devices();
 
     //if(mouse_fd == -1 && keyboard_fd == -1) {
         if(!num_devices) {
@@ -324,7 +322,7 @@ int main(int argc, char *argv[]) {
 
 
 #ifndef NO_OUTPUT
-    // making some assumptions here...//Ptad#41
+    // making some assumptions here...
     int i = 0;
     char str[20];
     for(struct HIDDevice *d = devices; d; d = d->next, i++) {
@@ -338,7 +336,7 @@ int main(int argc, char *argv[]) {
     running = 1;
     signal(SIGINT, signal_handler);
 
-//Ptad#41
+
     struct pollfd *poll_fds = malloc(sizeof(struct pollfd) * num_devices);
 
     i = 0;
@@ -347,9 +345,9 @@ int main(int argc, char *argv[]) {
         poll_fds[i].events = POLLIN;
     }
 
-    while (running){//Ptad#41
+    while (running){
         poll(poll_fds, num_devices, -1);
-        // should check which fds are ready...//Ptad#41で修正を要する作者の指摘と推定
+        // should check which fds are ready...で修正を要する作者の指摘と推定
 
         for(struct HIDDevice *d = devices; d; d = d->next) {
             if(d->hidraw_fd == -1)
@@ -365,17 +363,7 @@ int main(int argc, char *argv[]) {
             printf("R:");
             printhex(d->buf.data, c);
 
-
-/*ここの順番を入れ替えて、下の把持・リリース処理の後でこの処理をする。
-#ifndef NO_OUTPUT
-if(grabbed) {
-                write(d->output_fd, d->buf.data, c);
-                usleep(1000);
-            }
-#endif
-*/
-
-            if(d->is_keyboard) {//Ptad#41
+            if(d->is_keyboard) {
                 // Trap Ctrl + Raspberry and toggle capture on/off
                 if(d->buf.data[0] == (KEY_MOD_LCTRL | KEY_MOD_LMETA)){
                     if(grabbed) {

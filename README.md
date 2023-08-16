@@ -8,6 +8,7 @@ Our USB-C to USB-A is great if you're using a USB-A port (but make sure it's a *
 For the shortage of power supply, ELECOM makes a splitter that PD via USB-C and data link via USB-A: https://www.elecom.co.jp/products/MPA-CAPDBK.html
 
 A Raspberry Pi Mouse is also supported if plugged in, eg: https://shop.pimoroni.com/products/raspberry-pi-mouse?variant=29390982119507
+Following mice works: https://www.elecom.co.jp/products/M-Y8UBPN.html
 
 Following mice works: https://www.elecom.co.jp/products/M-Y8UBPN.html
 
@@ -71,7 +72,7 @@ Press `Ctrl + Shift + Raspberry` (on the grabbed keyboard) to exit. (This exit m
 
 ### Modification
 - Modify the key to grab/release keyboard and mouse from the host #27 Shuya4
-  - DeeNewcum:pi400kb
+  - DeeNewcum/pi400kb
 
 
 # Original
