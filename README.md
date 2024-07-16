@@ -1,18 +1,19 @@
 # Raspberry Pi 400 as a USB HID Keyboard & Mouse <!-- omit in toc -->
 
-Hook your Pi 400 up to your PC somehow, using a USB Type-C cable into the *power* port.  
-Anker make good ones- I used a 3m white one for my tests.
+USB-C *power* port is used to connect to power source and keyboard input. 
+On the other hand, shortage of power supply makes Pi 400 unstable. 
+Further, USB-C cannot be said it is common enough for keyboard terminal. 
 
-Our USB-C to USB-A is great if you're using a USB-A port (but make sure it's a *high power* one): https://shop.pimoroni.com/products/usb-c-to-usb-a-cable-1m-black  
-For the shortage of power supply, ELECOM makes a splitter that PD via USB-C and data link via USB-A: https://www.elecom.co.jp/products/MPA-CAPDBK.html
+ELECOM makes a splitter that PD via USB-C and data link via USB-A: https://www.elecom.co.jp/products/MPA-CAPDBK.html
 
-A Raspberry Pi Mouse is also supported if plugged in, eg: https://shop.pimoroni.com/products/raspberry-pi-mouse?variant=29390982119507  
-Following mice works: https://www.elecom.co.jp/products/M-Y8UBPN.html
+For mouse following works: https://www.elecom.co.jp/products/M-Y8UBPN.html
 
 This project started out life as a gist - https://gist.github.com/Gadgetoid/5a8ceb714de8e630059d30612503653f  
 Thank you to all the people who dropped by with kind words, suggestions and improvements.
 
+
 - [YASetup](#yet-another-setup)
+- [Modifications](#Modifications)
 
 --Original--
 - [Quickstart (Ish)](#quickstart-ish)
@@ -72,7 +73,26 @@ Press `Ctrl + Shift + Raspberry` (on the grabbed keyboard) to exit. (This exit m
 
 
 # Original
-## Quickstart (Ish)
+## Raspberry Pi 400 as a USB HID Keyboard & Mouse <!-- omit in toc -->
+
+Hook your Pi 400 up to your PC somehow, using a USB Type-C cable into the *power* port.
+Anker make good ones- I used a 3m white one for my tests.
+
+Our USB-C to USB-A is great if you're using a USB-A port (but make sure it's a *high power* one): https://shop.pimoroni.com/products/usb-c-to-usb-a-cable-1m-black
+
+A Raspberry Pi Mouse is also supported if plugged in, eg: https://shop.pimoroni.com/products/raspberry-pi-mouse?variant=29390982119507
+
+This project started out life as a gist - https://gist.github.com/Gadgetoid/5a8ceb714de8e630059d30612503653f
+
+Thank you to all the people who dropped by with kind words, suggestions and improvements.
+
+- [Quickstart (Ish)](#quickstart-ish)
+  - [Mouse Support](#mouse-support)
+- [Building & Contributing](#building--contributing)
+  - [Building](#building)
+  - [Custom Mouse/Keyboard Devices](#custom-mousekeyboard-devices)
+
+### Quickstart (Ish)
 
 Add `dtoverlay=dwc2` to `/boot/config.txt`
 
@@ -94,12 +114,11 @@ Press `Ctrl + Raspberry` to grab/release your keyboard and mouse, switching betw
 
 Press `Ctrl + Shift + Raspberry` (on the grabbed keyboard) to exit.
 
-
-### Mouse Support
+#### Mouse Support
 
 Pi 400 KB supports the official Raspberry Pi Mouse VID:PID = 093a:2510 by default, but other mice should work.
 
-### Autostart
+#### Autostart
 
 ```
 sudo cp pi400kb /usr/sbin/pi400kb
@@ -121,9 +140,9 @@ Enable start on boot if it's okay:
 sudo systemctl enable pi400kb.service
 ```
 
-## Building & Contributing
+### Building & Contributing
 
-### Building
+#### Building
 
 ```
 sudo apt install libconfig-dev git cmake
@@ -136,7 +155,7 @@ cmake ..
 make
 ```
 
-### Custom Mouse/Keyboard Devices
+#### Custom Mouse/Keyboard Devices
 
 CMake accepts the following build arguments to customise the VID/PID and device path for the mouse/keyboard:
 
